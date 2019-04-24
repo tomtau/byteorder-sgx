@@ -62,10 +62,15 @@ This crate can also be used without the standard library.
 */
 
 #![deny(missing_docs)]
-#![cfg_attr(not(feature = "std"), no_std)]
+#![cfg_attr(any(not(feature = "std"),
+                all(feature = "mesalock_sgx",
+                    not(target_env = "sgx"))), no_std)]
 
-#[cfg(feature = "std")]
+#[cfg(all(feature = "std", not(feature = "mesalock_sgx")))]
 extern crate core;
+
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
+extern crate sgx_tstd as std;
 
 use core::fmt::Debug;
 use core::hash::Hash;

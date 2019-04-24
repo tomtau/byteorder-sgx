@@ -22,13 +22,17 @@ quickcheck = { version = "0.8", default-features = false }
 rand = "0.6"
 
 [features]
-default = ["std"]
+default = ["std","mesalock_sgx"]
 std = []
+mesalock_sgx = ["std", "sgx_tstd"]
 
 # This feature is no longer used and is DEPRECATED. This crate now
 # automatically enables i128 support for Rust compilers that support it. The
 # feature will be removed if and when a new major version is released.
 i128 = []
+
+[dependencies]
+sgx_tstd = { version = "1.0", optional = true }
 
 [profile.bench]
 opt-level = 3
