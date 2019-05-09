@@ -33,7 +33,7 @@ mesalock_sgx = ["std", "sgx_tstd"]
 i128 = []
 
 [dependencies]
-sgx_tstd = { version = "1.0", optional = true }
+sgx_tstd = { git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
 
 [profile.bench]
 opt-level = 3

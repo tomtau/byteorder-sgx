@@ -65,8 +65,11 @@ This crate can also be used without the standard library.
 #![cfg_attr(any(not(feature = "std"),
                 all(feature = "mesalock_sgx",
                     not(target_env = "sgx"))), no_std)]
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
 
-#[cfg(all(feature = "std", not(feature = "mesalock_sgx")))]
+#[cfg(all(feature = "std",
+          not(all(feature = "mesalock_sgx",
+                  not(target_env = "sgx")))))]
 extern crate core;
 
 #[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
